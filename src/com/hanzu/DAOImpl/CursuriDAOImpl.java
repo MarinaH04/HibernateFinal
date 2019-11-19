@@ -1,4 +1,4 @@
-package com.hanzu.curs;
+package com.hanzu.DAOImpl;
 
 
 import org.hibernate.Session;
@@ -8,11 +8,14 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
+import com.hanzu.DAO.CursuriDAO;
+import com.hanzu.model.Cursuri;
 
 
 
 
-public class CursuriDAOImpl {
+
+public class CursuriDAOImpl implements CursuriDAO {
 	public static SessionFactory connect() {
 		Configuration con = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Cursuri.class);
 		ServiceRegistry reg = new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();
@@ -23,7 +26,7 @@ public class CursuriDAOImpl {
 	
 		
 	
-	public static void insera(int cursID,String nume) {
+	public void insera(int cursID,String nume) {
 		Session session = connect().openSession();
 		Transaction tx = session.beginTransaction();
 		Cursuri curs = new Cursuri();
@@ -33,7 +36,7 @@ public class CursuriDAOImpl {
 		tx.commit();
 	}
 	
-	public static void modifica(int idcurs, String numecurs) {
+	public void modifica(int idcurs, String numecurs) {
 		Session session = connect().openSession();
 		Transaction tx = session.beginTransaction();
 		Cursuri curs = (Cursuri) session.load(Cursuri.class, idcurs);
@@ -43,7 +46,7 @@ public class CursuriDAOImpl {
 	}
 	
 	
-	public static void delete(int idcurs) {
+	public void delete(int idcurs) {
 		Session session = connect().openSession();
 		Transaction tx = session.beginTransaction();
 		Cursuri curs = (Cursuri) session.load(Cursuri.class, idcurs);

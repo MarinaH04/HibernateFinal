@@ -1,4 +1,4 @@
-package com.hanzu.curs;
+package com.hanzu.model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +10,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import com.hanzu.student.*;
+
 
 @Entity
 @Table(name="cursuri", catalog = "student_database")

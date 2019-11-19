@@ -1,4 +1,4 @@
-package com.hanzu.student;
+package com.hanzu.model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import com.hanzu.curs.*;
+
+
 @Entity
 @Table(name="student", catalog="student_database", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "USERNAME"),
