@@ -89,6 +89,8 @@ public class Student implements java.io.Serializable{
 		return "Student [studentID=" + studentID + ", username=" + username + ", email=" + email + ", password="
 				+ password + ", cursuri=" + cursuri + "]";
 	}
+	
+	
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "studcurs", catalog = "student_database", joinColumns = { 

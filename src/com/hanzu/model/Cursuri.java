@@ -56,8 +56,13 @@ public class Cursuri implements java.io.Serializable{
 		return student;
 	}
 
+	
+
 	public void setStudent(Set<Student> student) {
 		this.student = student;
 	}
-	
+	@Override
+	public String toString() {
+		return "Cursuri [cursID=" + cursID + ", denumire=" + denumire + ", student=" + student + "]";
+	}
 }

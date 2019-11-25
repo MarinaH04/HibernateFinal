@@ -77,12 +77,12 @@ public class StudentDAOImpl implements StudentDAO{
 	}
 	public List<Student> afisarecurs(){
 		List<Student> studentList = null;
-		Cursuri curs = new Cursuri();
 		
 		Session session = connect().openSession();
-		session.beginTransaction();
+		Cursuri curs = new Cursuri();
 		
-		String hql = "select s.username, c.denumire from Student s JOIN s.cursuri c WHERE c.studentID = :IDcategory";
+        String hql = "select s FROM Student s JOIN s.cursuri c WHERE c.cursID = :IDcategory";
+//       String hql = "select s.studentID, s.username, s.email, s.password FROM Student s";
 		Query query = session.createQuery(hql);
 		query.setParameter("IDcategory", curs.getCursID());
 		studentList = query.list();
