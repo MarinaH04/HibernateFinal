@@ -1,7 +1,7 @@
 package com.hanzu.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,12 +16,16 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 
+
+
 @Entity
 @Table(name="student", catalog="student_database", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "USERNAME"),
 		@UniqueConstraint(columnNames = "EMAIL"),
 		@UniqueConstraint(columnNames = "PASSWORD")
 })
+
+
 public class Student implements java.io.Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -30,7 +34,7 @@ public class Student implements java.io.Serializable{
 	private String username;
 	private String email;
 	private String password;
-	private Set<Cursuri> cursuri = new HashSet<Cursuri>(0);
+	private List<Cursuri> cursuri = new ArrayList<Cursuri>();
 	
 	public Student() {}
 	
@@ -39,7 +43,7 @@ public class Student implements java.io.Serializable{
 		this.email = email;
 		this.password = password;
 	}
-	public Student(String username, String email, String password, Set<Cursuri> cursuri) {
+	public Student(String username, String email, String password, List<Cursuri> cursuri) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
@@ -65,7 +69,7 @@ public class Student implements java.io.Serializable{
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	@Column(name="EMAIL", unique = true, nullable = false, length = 20)
+	@Column(name="EMAIL", unique = true, nullable = false, length = 50)
 	public String getEmail() {
 		return email;
 	}
@@ -84,28 +88,28 @@ public class Student implements java.io.Serializable{
 	
 
 	
+	
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "studcurs", catalog = "student_database", joinColumns = { 
+			@JoinColumn(name = "studID", nullable = false, updatable = true) }, 
+			inverseJoinColumns = { @JoinColumn(name = "cursuriID", 
+					nullable = false, updatable = true) })
+	
+	public List<Cursuri> getCursuri() {
+		return cursuri;
+	}
+
+	public void setCursuri(List<Cursuri> cursuri) {
+		this.cursuri = cursuri;
+	}
+
 	@Override
 	public String toString() {
 		return "Student [studentID=" + studentID + ", username=" + username + ", email=" + email + ", password="
 				+ password + ", cursuri=" + cursuri + "]";
 	}
+
 	
-	
-
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "studcurs", catalog = "student_database", joinColumns = { 
-			@JoinColumn(name = "studID", nullable = false, updatable = false) }, 
-			inverseJoinColumns = { @JoinColumn(name = "cursuriID", 
-					nullable = false, updatable = false) })
-	
-	public Set<Cursuri> getCursuri() {
-		return cursuri;
-	}
-
-	public void setCursuri(Set<Cursuri> cursuri) {
-		this.cursuri = cursuri;
-	}
-
-
 	
 }

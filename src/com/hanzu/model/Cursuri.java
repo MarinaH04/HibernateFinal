@@ -1,7 +1,9 @@
 package com.hanzu.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,14 +22,14 @@ public class Cursuri implements java.io.Serializable{
 	
 	private Integer cursID;
 	private String denumire;
-	private Set<Student> student = new HashSet<Student>(0);
+	private List<Student> student = new ArrayList<Student>();
 
 	public Cursuri() {}
 	
 	public Cursuri(String denumire) {
 		this.denumire = denumire;
 	}
-	public Cursuri(String denumire, Set<Student> student) {
+	public Cursuri(String denumire, List<Student> student) {
 		this.denumire = denumire;
 		this.student = student;
 	}
@@ -51,18 +53,20 @@ public class Cursuri implements java.io.Serializable{
 		this.denumire = denumire;
 	}
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "cursuri")
-	public Set<Student> getStudent() {
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "cursuri", cascade = CascadeType.ALL)
+	public List<Student> getStudent() {
 		return student;
 	}
 
 	
 
-	public void setStudent(Set<Student> student) {
+	public void setStudent(List<Student> student) {
 		this.student = student;
 	}
+
 	@Override
 	public String toString() {
-		return "Cursuri [cursID=" + cursID + ", denumire=" + denumire + ", student=" + student + "]";
+		return "Cursuri [cursID=" + cursID + ", denumire=" + denumire + "]";
 	}
+	
 }

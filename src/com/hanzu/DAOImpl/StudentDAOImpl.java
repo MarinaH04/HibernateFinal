@@ -11,7 +11,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import com.hanzu.DAO.StudentDAO;
-import com.hanzu.model.Student;
+
 import org.hibernate.Query;
 
 import java.util.*;
@@ -31,15 +31,18 @@ public class StudentDAOImpl implements StudentDAO{
 	
 		
 	
-	public void insera(String username,String email, String password) {
+	public void insera(String username,String email, String password, List<Cursuri> cursuri) {
 		Session session = connect().openSession();
 		Transaction tx = session.beginTransaction();
 		Student student = new Student();
 		student.setUsername(username);
 		student.setEmail(email);
 		student.setPassword(password);
+		List<Cursuri> li = session.createQuery("FROM Cursuri").list();
+		student.setCursuri(li);
 		session.save(student);
 		tx.commit();
+		session.close();
 	}
 	
 	public void modifica(int studentID, String email) {
@@ -60,11 +63,13 @@ public class StudentDAOImpl implements StudentDAO{
 		tx.commit();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Student> displayStudents(){
-		List<Student> studentList = null;
+		List<Student> studentList = new ArrayList<Student>();
 		Session session = connect().openSession();
 		session.beginTransaction();
 		studentList = (List<Student>) session.createCriteria(Student.class).list();
+		System.out.println(studentList.size());
 		return studentList;
 	}
 	public Student getStudent(String username) {
