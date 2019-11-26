@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -53,7 +55,18 @@ public class Cursuri implements java.io.Serializable{
 		this.denumire = denumire;
 	}
 	
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "cursuri", cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = 
+		{ 		
+				CascadeType.DETACH, 
+				CascadeType.MERGE, 
+				CascadeType.REFRESH,
+				CascadeType.PERSIST 
+		}, 
+		targetEntity = Student.class)
+	@JoinTable(name = "studcurs", catalog = "student_database", joinColumns = { 
+			@JoinColumn(name = "cursuriID", nullable = false, updatable = true) }, 
+			inverseJoinColumns = { @JoinColumn(name = "studID", 
+					nullable = false, updatable = true) })
 	public List<Student> getStudent() {
 		return student;
 	}

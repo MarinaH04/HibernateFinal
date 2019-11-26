@@ -90,7 +90,14 @@ public class Student implements java.io.Serializable{
 	
 	
 	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = 
+		{ 		
+				CascadeType.DETACH, 
+				CascadeType.MERGE, 
+				CascadeType.REFRESH,
+				CascadeType.PERSIST 
+		},
+		targetEntity = Cursuri.class)
 	@JoinTable(name = "studcurs", catalog = "student_database", joinColumns = { 
 			@JoinColumn(name = "studID", nullable = false, updatable = true) }, 
 			inverseJoinColumns = { @JoinColumn(name = "cursuriID", 

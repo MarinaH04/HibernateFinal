@@ -27,39 +27,16 @@ public class Main {
 
 	public static void main(String[] args) {
 		Session session = connect().openSession();
-//		StudentDAOImpl student = new StudentDAOImpl();
+		StudentDAOImpl student = new StudentDAOImpl();
+		student.displayStudents();
 //		List<Cursuri> cursuri= new ArrayList(); 
-//		student.insera("Cristina", "cricri@yahoo.com", "789555", cursuri);
-//		student.delete(4);
+//		student.insera("Alina", "alinutza@yahoo.com", "55789", cursuri);
+//		student.delete(3);
 		
-//		List<Object> result = session.createQuery("FROM Student").list();
-//		if(result!=null) {
-//			for(Object obj: result) {
-//				System.out.println(obj.toString());
-//			}
-//			
-//		}
-//		else {
-//			System.out.println("No result");
-//		}
+
 		
-//		Transaction tx = session.beginTransaction();
-//		Student student = new Student();
-//		System.out.println(student);
-//		student.setUsername("Marina");
-//		student.setEmail("marina@yahoo.com");
-//		student.setPassword("1234");
-//		List<Cursuri> li = session.createQuery("FROM Cursuri").list();
-////		System.out.println(li.get(0));
-////		Cursuri curs = li.get(0);
-////		List<Cursuri> m = new ArrayList();
-////		System.out.println(curs);
-//		student.setCursuri(li);
-//		session.save(student);
-//		tx.commit();
-		
-		CursuriDAOImpl cursuri = new CursuriDAOImpl();
-		cursuri.delete(1);
+//		CursuriDAOImpl cursuri = new CursuriDAOImpl();
+//		cursuri.delete(1);
 		
 			
 	}

@@ -63,14 +63,20 @@ public class StudentDAOImpl implements StudentDAO{
 		tx.commit();
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Student> displayStudents(){
-		List<Student> studentList = new ArrayList<Student>();
+	
+	public void displayStudents(){
 		Session session = connect().openSession();
-		session.beginTransaction();
-		studentList = (List<Student>) session.createCriteria(Student.class).list();
-		System.out.println(studentList.size());
-		return studentList;
+		@SuppressWarnings("unchecked")
+		List<Object> result = session.createQuery("FROM Student").list();
+		if(result!=null) {
+			for(Object obj: result) {
+				System.out.println(obj.toString());
+			}
+			
+		}
+		else {
+			System.out.println("No result");
+		}
 	}
 	public Student getStudent(String username) {
 		Session session = connect().openSession();

@@ -9,5 +9,5 @@ public interface StudentDAO {
 	public void insera(String username,String email, String password, List<Cursuri> cursuri);
 	public void modifica(int studentID, String email);
 	public void delete(int studentID);
-	public List<Student> displayStudents();
+	public void displayStudents();
 }
